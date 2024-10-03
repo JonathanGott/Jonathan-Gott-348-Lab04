@@ -47,3 +47,53 @@ int main() {
 
     printf("Convert to (1) Celsius, (2) Fahrenheit, (3) Kelvin: ");
     scanf("%d", &target_scale);
+
+    if (current_scale == 1) {  // Celsius
+        if (target_scale == 2) {
+            converted_temp = celsius_to_fahrenheit(temp);
+            printf("Converted temperature: %.2f°F\n", converted_temp);
+        } else if (target_scale == 3) {
+            converted_temp = celsius_to_kelvin(temp);
+            printf("Converted temperature: %.2fK\n", converted_temp);
+        } else {
+            converted_temp = temp;
+            printf("Converted temperature: %.2f°C\n", converted_temp);
+        }
+    } else if (current_scale == 2) {  // Fahrenheit
+        if (target_scale == 1) {
+            converted_temp = fahrenheit_to_celsius(temp);
+            printf("Converted temperature: %.2f°C\n", converted_temp);
+        } else if (target_scale == 3) {
+            converted_temp = celsius_to_kelvin(fahrenheit_to_celsius(temp));
+            printf("Converted temperature: %.2fK\n", converted_temp);
+        } else {
+            converted_temp = temp;
+            printf("Converted temperature: %.2f°F\n", converted_temp);
+        }
+    } else if (current_scale == 3) {  // Kelvin
+        if (target_scale == 1) {
+            converted_temp = kelvin_to_celsius(temp);
+            printf("Converted temperature: %.2f°C\n", converted_temp);
+        } else if (target_scale == 2) {
+            converted_temp = celsius_to_fahrenheit(kelvin_to_celsius(temp));
+            printf("Converted temperature: %.2f°F\n", converted_temp);
+        } else {
+            converted_temp = temp;
+            printf("Converted temperature: %.2fK\n", converted_temp);
+        }
+    } else {
+        printf("Invalid input.\n");
+        return 1;
+    }
+
+    // Categorize based on Celsius value
+    if (current_scale == 2) {  // Fahrenheit
+        categorize_temperature(fahrenheit_to_celsius(temp));
+    } else if (current_scale == 3) {  // Kelvin
+        categorize_temperature(kelvin_to_celsius(temp));
+    } else {
+        categorize_temperature(temp);
+    }
+
+    return 0;
+}
